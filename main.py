@@ -20,7 +20,7 @@ space(2)
 for name in ss["choices"]:
     c1,c2 = st.columns([4,.5])
     with c1:
-        if st.button("##### "+name, key = f"btn_{name}", use_container_width=True):
+        if st.button(name, key = f"btn_{name}", use_container_width=True):
             # new = pd.DataFrame([{"Name": name, "Score": 1}])
             # ss["scores"] = pd.concat([ss["scores"], new], ignore_index=True)
 
@@ -28,7 +28,7 @@ for name in ss["choices"]:
             ss["choices"] = random.sample(names, 3)
             st.rerun()
     with c2:
-        with st.popover("?",use_container_width=True):
+        with st.expander("?",use_container_width=True, expanded=False, bordered=True):
             st.subheader(name)
             space(1)
             row = df[df["Name"] == name].iloc[0]
@@ -83,6 +83,6 @@ with st.expander("See Scoring"):
                 font=dict(size=14),
                 xanchor="center"
             )
-        st.plotly_chart(fig, use_container_width=True)
-        if st.toggle("Show all names"):
+        st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+        if st.toggle("Show all scores"):
             st.dataframe(data)
