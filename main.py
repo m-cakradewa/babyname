@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 import random
 from streamlit import session_state as ss
-import plotly_express as px
+import plotly.express as px
 
 df = pd.read_excel("baby_names.xlsx")
 names = df["Name"].unique().tolist()
