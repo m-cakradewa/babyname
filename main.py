@@ -20,7 +20,7 @@ space(2)
 for name in ss["choices"]:
     c1,c2 = st.columns([4,.5])
     with c1:
-        if st.button(name, key = f"btn_{name}", use_container_width=True):
+        if st.button("##### "+name, key = f"btn_{name}", use_container_width=True):
             # new = pd.DataFrame([{"Name": name, "Score": 1}])
             # ss["scores"] = pd.concat([ss["scores"], new], ignore_index=True)
 
