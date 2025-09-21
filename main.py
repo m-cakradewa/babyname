@@ -29,7 +29,7 @@ for name in ss["choices"]:
             st.rerun()
     with c2:
         # with st.popover("?",use_container_width=True):
-        with st.expander("?", expanded=False):
+        with st.expander(">", expanded=False):
             st.subheader(name)
             space(1)
             row = df[df["Name"] == name].iloc[0]
