@@ -28,8 +28,8 @@ for name in ss["choices"]:
             ss["choices"] = random.sample(names, 3)
             st.rerun()
     with c2:
-        # with st.popover("?",use_container_width=True):
-        with st.expander("", expanded=False):
+        with st.popover("?",use_container_width=True):
+        # with st.expander("", expanded=False):
             st.subheader(name)
             space(1)
             row = df[df["Name"] == name].iloc[0]
