@@ -42,6 +42,7 @@ for name in ss["choices"]:
             space(2)
             st.write("##### Traits:")
             st.write(row["Illustration / Personality + Quirky Trait"])
+    space(2)
 
 with st.expander("See Scoring"):
     space(1)
