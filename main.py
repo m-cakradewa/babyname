@@ -27,7 +27,9 @@ for name in ss["choices"]:
             ss["choices"] = random.sample(names, 5)
             st.rerun()
     with c2:
-        with st.expander("?",use_container_width=True):
+        with st.expander("?",
+                         #use_container_width=True
+                         ):
         # with st.expander("", expanded=False):
             st.subheader(name)
             space(1)
