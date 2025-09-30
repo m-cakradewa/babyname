@@ -16,8 +16,8 @@ if "scores" not in ss:
 
 if "choices" not in st.session_state:
     ss["choices"] = random.sample(names, 5)
-#st.markdown("<h2 style='text-align: center;'>Baby Name Picker</h2>", unsafe_allow_html=True)
-#st.markdown("<h5 style='text-align: center;'>Pick a baby name, and learn more about each of them!</h5>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Baby Name Picker</h2>", unsafe_allow_html=True)
+st.markdown("<h6 style='text-align: center;'>Pick a baby name, and learn more about each of them!</h5>", unsafe_allow_html=True)
 space(2)
 for name in ss["choices"]:
     c1,c2 = st.columns([4,.5])
