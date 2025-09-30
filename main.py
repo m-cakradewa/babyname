@@ -4,8 +4,10 @@ import random
 from streamlit import session_state as ss
 import plotly.express as px
 
-df = pd.read_excel("baby_names.xlsx")
-names = df["Name"].unique().tolist()
+#df = pd.read_excel("baby_names.xlsx")
+df = pd.read_excel("baby_data.xlsx", sheet_name="names")
+#st.dataframe(df.head(30))
+names = df["names"].unique().tolist()
 def space(n):
     for _ in range(n):
         st.write("")
@@ -13,37 +15,43 @@ if "scores" not in ss:
     ss["scores"] = []
 
 if "choices" not in st.session_state:
-    ss["choices"] = random.sample(names, 3)
-st.markdown("<h2 style='text-align: center;'>Baby Name Picker</h2>", unsafe_allow_html=True)
-st.markdown("<h5 style='text-align: center;'>Pick a baby name, and learn more about each of them!</h5>", unsafe_allow_html=True)
+    ss["choices"] = random.sample(names, 5)
+#st.markdown("<h2 style='text-align: center;'>Baby Name Picker</h2>", unsafe_allow_html=True)
+#st.markdown("<h5 style='text-align: center;'>Pick a baby name, and learn more about each of them!</h5>", unsafe_allow_html=True)
 space(2)
 for name in ss["choices"]:
     c1,c2 = st.columns([4,.5])
     with c1:
         if st.button(name, key = f"btn_{name}", use_container_width=True):
-            # new = pd.DataFrame([{"Name": name, "Score": 1}])
-            # ss["scores"] = pd.concat([ss["scores"], new], ignore_index=True)
-
             ss["scores"].append({"Name": name, "Score": 1})
-            ss["choices"] = random.sample(names, 3)
+            ss["choices"] = random.sample(names, 5)
             st.rerun()
     with c2:
         with st.popover("?",use_container_width=True):
         # with st.expander("", expanded=False):
             st.subheader(name)
             space(1)
-            row = df[df["Name"] == name].iloc[0]
+            row = df[df["names"] == name].iloc[0]
             c3,c4 = st.columns(2)
             with c3:
-                st.write("##### Origin & Background")
-                st.write(row["Origin & Background"])
+                st.write("###### Origin & Background")
+                st.write(row["affiliation"]+": "+row["origin_1"] + " / " + row["origin_2"] + " / " + row["origin_3"])
             with c4:
-                st.write("##### Meaning")
-                st.write(row["Meaning"])
+                st.write("###### Meaning")
+                st.write(row["meaning"])
             space(2)
-            st.write("##### Traits:")
-            st.write(row["Illustration / Personality + Quirky Trait"])
+            st.write("###### About the name:")
+            st.write(row["backstory"])
+            space(1)
+            st.write("###### Random traits:")
+            st.write(row["traits"])
     space(2)
+_,c,_ = st.columns([1,2,1])
+space(2)
+with c:
+    if st.button("Get New Names", use_container_width=True):
+        ss["choices"] = random.sample(names, 5)
+        st.rerun()
 
 with st.expander("See Scoring"):
     space(1)
