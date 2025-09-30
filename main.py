@@ -59,7 +59,7 @@ with st.expander("See Scoring"):
         df = pd.DataFrame(ss["scores"])
         data = df.groupby("Name", as_index=False)["Score"].sum().sort_values("Score", ascending=False)
         fig = px.bar(
-    data.head(),
+    data.head(10),
     x="Name",
     y="Score",
     orientation="v",          # vertical
