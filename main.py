@@ -4,8 +4,8 @@ import random
 from streamlit import session_state as ss
 import plotly.express as px
 
-#df = pd.read_excel("baby_names.xlsx")
 df = pd.read_excel("baby_data.xlsx", sheet_name="names")
+dfp = pd.read_csv("name_popularity.csv")
 #st.dataframe(df.head(30))
 names = df["names"].unique().tolist()
 def space(n):
@@ -20,38 +20,40 @@ st.markdown("<h3 style='text-align: center;'>Baby Name Picker</h2>", unsafe_allo
 st.markdown("<h6 style='text-align: center;'>Pick a baby name, and learn more about each of them!</h5>", unsafe_allow_html=True)
 space(2)
 for name in ss["choices"]:
-    c1,c2 = st.columns([4,.5])
-    with c1:
-        if st.button(name, key = f"btn_{name}", use_container_width=True):
-            ss["scores"].append({"Name": name, "Score": 1})
-            ss["choices"] = random.sample(names, 5)
-            st.rerun()
-    with c2:
-        with st.expander("?",
-                         #use_container_width=True
-                         ):
-        # with st.expander("", expanded=False):
-            st.subheader(name)
-            space(1)
-            row = df[df["names"] == name].iloc[0]
-            c3,c4 = st.columns(2)
-            with c3:
-                st.write("###### Origin & Background")
-                st.write(row["affiliation"]+": "+row["origin_1"] + " / " + row["origin_2"] + " / " + row["origin_3"])
-            with c4:
-                st.write("###### Meaning")
-                st.write(row["meaning"])
-            space(2)
-            st.write("###### About the name:")
-            st.write(row["backstory"])
-            space(1)
-            st.write("###### Random traits:")
-            st.write(row["traits"])
-    space(2)
+    if st.button(name, key = f"btn_{name}", use_container_width=True):
+        ss["scores"].append({"Name": name, "Score": 1})
+        ss["choices"] = random.sample(names, 5)
+        st.rerun()
+
+    with st.expander("?"):
+    # with st.expander("", expanded=False):
+        st.subheader(name)
+        space(1)
+        row = df[df["names"] == name].iloc[0]
+        c3,c4 = st.columns(2)
+        with c3:
+            st.write("###### Origin & Background")
+            st.write(row["affiliation"]+": "+row["origin_1"] + " / " + row["origin_2"] + " / " + row["origin_3"])
+        with c4:
+            st.write("###### Meaning")
+            st.write(row["meaning"])
+        space(2)
+        st.write("###### About the name:")
+        st.write(row["backstory"])
+        # space(1)
+#         st.write("###### Popularity:")
+#         df_filtered = dfp[dfp["name"] == name]
+#         fig = px.line(df_filtered, x ="year",y="popularity",template="plotly_dark")
+#         fig.update_layout(
+# xaxis_title='Year',
+# yaxis_title='Popularity (0-100)',
+# yaxis=dict(range=[0, 100]))
+#         st.plotly_chart(fig, use_container_width=True, key = "chart_"+name)
+space(2)
 _,c,_ = st.columns([1,2,1])
 space(2)
 with c:
-    if st.button("Get New Names", use_container_width=True):
+    if st.button("Get New Names", use_container_width=False):
         ss["choices"] = random.sample(names, 5)
         st.rerun()
 
