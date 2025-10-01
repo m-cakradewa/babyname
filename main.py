@@ -19,6 +19,20 @@ if "choices" not in st.session_state:
 st.markdown("<h3 style='text-align: center;'>Baby Name Picker</h2>", unsafe_allow_html=True)
 st.markdown("<h6 style='text-align: center;'>Pick a baby name, and learn more about each of them!</h5>", unsafe_allow_html=True)
 space(2)
+if st.toggle("All Names"):
+    dfprint = df.drop(columns=["letters","syllable","first_letter","traits"])
+    for i in dfprint.names:
+        with st.expander(i):
+            row = dfprint[dfprint["names"] == i]
+            # st.write(row)
+            st.write(row.affiliation.values[0]+": "+row.origin_1.values[0] + " | " + row.origin_2.values[0] + " | " + row.origin_3.values[0])
+            space(1)
+            st.write("*Meaning:*")
+            st.write(row.meaning.values[0])
+            space(1)
+            st.write("*About the name:*")
+            st.write(row.backstory.values[0])
+space(3)
 for name in ss["choices"]:
     if st.button(name, key = f"btn_{name}", use_container_width=True):
         ss["scores"].append({"Name": name, "Score": 1})
