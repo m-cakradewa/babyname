@@ -49,6 +49,7 @@ for name in ss["choices"]:
 # yaxis_title='Popularity (0-100)',
 # yaxis=dict(range=[0, 100]))
 #         st.plotly_chart(fig, use_container_width=True, key = "chart_"+name)
+    space(2)
 space(2)
 _,c,_ = st.columns([1,2,1])
 space(2)
